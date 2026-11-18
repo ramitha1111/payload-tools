@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "ci-e2e.yaml"
+# Estimated savings: ~2 min/run
+#
 name: CI E2E
 
 on:
@@ -7,6 +12,10 @@ on:
   pull_request:
     branches: [main]
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
